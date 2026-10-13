@@ -7,7 +7,7 @@ const config: CapacitorConfig = {
   bundledWebRuntime: false,
   backgroundColor: '#080b12',
   android: {
-    allowMixedContent: false
+    allowMixedContent: true
   }
 };
 
