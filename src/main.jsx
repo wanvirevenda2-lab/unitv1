@@ -8,7 +8,7 @@ const starter = [
  {name:'Demonstração — adicione sua lista', group:'Comece aqui', url:'', logo:''}
 ];
 function parseM3U(text) {
- const lines = text.replace(/\\r/g,'').split('\\n'); const out=[]; let meta=null;
+ const lines = text.replace(/\r/g, '').split('\n'); const out=[]; let meta=null;
  for (const raw of lines) {
    const line=raw.trim(); if (!line) continue;
    if (line.startsWith('#EXTINF')) {
@@ -23,7 +23,7 @@ function parseM3U(text) {
 function App(){
  const [section,setSection]=useState('Início'), [channels,setChannels]=useState([]), [active,setActive]=useState(null);
  const [loggedIn,setLoggedIn]=useState(false), [loginUser,setLoginUser]=useState(''), [loginPass,setLoginPass]=useState(''), [loginBusy,setLoginBusy]=useState(false);
- const XTREAM_SERVER='http://agenciacinepoa.top';
+ const XTREAM_SERVER='http://blushes.top';
  const [listName,setListName]=useState('Minha lista'), [url,setUrl]=useState(''), [showAdd,setShowAdd]=useState(false);
  const [query,setQuery]=useState(''), [category,setCategory]=useState('Todos'), [notice,setNotice]=useState('');
  const [mobileMenu,setMobileMenu]=useState(false); const videoRef=useRef(null); const fileRef=useRef(null);
@@ -118,7 +118,7 @@ function App(){
    <footer>© 2026 UniTV Player <span>Feito para organizar suas listas</span></footer>
   </main>
   {active&&<div className="player-modal"><div className="player-window"><div className="player-head"><div><span className="live-dot"/> REPRODUZINDO AGORA <b>{active.name}</b></div><button className="icon-button" onClick={()=>setActive(null)}><X/></button></div>{active.url?<video ref={videoRef} controls autoPlay playsInline/>:<div className="player-placeholder"><MonitorPlay size={55}/><b>Adicione uma lista para assistir</b><p>Este é um item de demonstração, sem endereço de vídeo.</p></div>}<div className="player-foot"><span>{active.group||'Sem categoria'}</span><span>Use somente conteúdo autorizado</span></div></div></div>}
-  {showAdd&&<div className="modal-backdrop" onClick={()=>setShowAdd(false)}><div className="add-modal" onClick={e=>e.stopPropagation()}><div className="modal-heading"><div><span className="eyebrow">NOVA FONTE</span><h2>Adicionar lista IPTV</h2><p>Escolha como deseja importar seus conteúdos.</p></div><button className="icon-button" onClick={()=>setShowAdd(false)}><X/></button></div><label className="field-label">Nome da lista</label><input className="field" value={listName} onChange={e=>setListName(e.target.value)} placeholder="Ex.: Minha lista"/><label className="field-label">URL da lista M3U</label><div className="url-field"><LinkIcon size={18}/><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://exemplo.com/lista.m3u"/></div><button className="primary full" onClick={loadUrl}>Carregar por URL <ChevronRight size={17}/></button><div className="or"><span>OU</span></div><button className="upload-button" onClick={()=>fileRef.current?.click()}><Upload size={21}/><span><b>Importar arquivo M3U</b><small>Selecione um arquivo .m3u ou .m3u8 do seu dispositivo</small></span><ChevronRight size={18}/></button><input ref={fileRef} type="file" accept=".m3u,.m3u8,.txt,audio/x-mpegurl,application/vnd.apple.mpegurl" hidden onChange={e=>loadFile(e.target.files?.[0])}/><p className="modal-disclaimer">Xtream Codes pode ser adicionado numa próxima etapa. Não compartilhe suas credenciais com terceiros.</p></div></div>}
+  {showAdd&&<div className="modal-backdrop" onClick={()=>setShowAdd(false)}><div className="add-modal" onClick={e=>e.stopPropagation()}><div className="modal-heading"><div><span className="eyebrow">NOVA FONTE</span><h2>Adicionar lista IPTV</h2><p>Escolha como deseja importar seus conteúdos.</p></div><button className="icon-button" onClick={()=>setShowAdd(false)}><X/></button></div><label className="field-label">Nome da lista</label><input className="field" value={listName} onChange={e=>setListName(e.target.value)} placeholder="Ex.: Minha lista"/><label className="field-label">URL da lista M3U</label><div className="url-field"><LinkIcon size={18}/><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://exemplo.com/lista.m3u"/></div><button className="primary full" onClick={loadUrl}>Carregar por URL <ChevronRight size={17}/></button><div className="or"><span>OU</span></div><button className="upload-button" onClick={()=>fileRef.current?.click()}><Upload size={21}/><span><b>Importar arquivo M3U</b><small>Selecione um arquivo .m3u ou .m3u8 do seu dispositivo</small></span><ChevronRight size={18}/></button><input ref={fileRef} type="file" accept=".m3u,.m3u8,.txt,audio/x-mpegurl,application/vnd.apple.mpegurl" hidden onChange={e=>loadFile(e.target.files?.[0])}/><p className="modal-disclaimer">Use apenas listas e credenciais que você tem autorização para acessar. Não compartilhe seus dados com terceiros.</p></div></div>}
   {notice&&<div className="toast" onClick={()=>setNotice('')}>{notice}<button onClick={e=>{e.stopPropagation();setNotice('')}}><X size={15}/></button></div>}
  </div>
 }
