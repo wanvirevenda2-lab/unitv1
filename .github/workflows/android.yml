@@ -37,6 +37,26 @@ jobs:
       - name: Sincronizar Android
         run: npx cap sync android
 
+      - name: Permitir conexões HTTP
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path("android/app/src/main/AndroidManifest.xml")
+          s = p.read_text()
+
+          s = re.sub(
+              r'<application\b',
+              '<application android:usesCleartextTraffic="true"',
+              s,
+              count=1
+          )
+
+          p.write_text(s)
+          print("Permissão HTTP configurada no AndroidManifest.xml")
+          PY
+
       - name: Compilar APK
         run: |
           cd android
